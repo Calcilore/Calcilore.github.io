@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <audio id="myAudio" style="height: 0px;width: 0px;" controls>
+            <source src="bong.ogg" type="audio/ogg">
+            <source src="bong.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+
+        <h1> Beeper!</h1>
+        <label for="delay">delay (seconds):</label>
+        <input type="number" id="delay">
+
+        <p></p>
+        <button id="startbutton", onclick="startbutton()">Start</button>
+    </body>
+
+    <script>
+
+        var soundE = document.getElementById("myAudio");
+        var delayE = document.getElementById("delay");
+        var startE = document.getElementById("startbutton");
+
+        var isRunning = false;
+        var cid = 0;
+
+        delayE.value = 10
+
+        function play(id) {
+            if (id != cid)
+                return;
+
+            //alert(delayE.value * 1000)
+            soundE.play();
+
+            setTimeout(play, delayE.value * 1000, cid);
+        }
+
+        function startbutton() {
+            if (isRunning) {
+                cid++;
+
+                isRunning = false;
+                startE.innerHTML = "Start";
+            } else {
+                play(cid)
+
+                isRunning = true;
+                startE.innerHTML = "Stop";
+            }
+        }
+        
+    </script>
+</html>
